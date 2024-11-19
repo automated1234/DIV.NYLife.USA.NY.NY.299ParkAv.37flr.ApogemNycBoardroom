@@ -24,10 +24,6 @@ class UiCamClass(AbstractUiClass):
             302:data['cam2name'],
             303:data['cam3name'],
             304:data['cam4name'],
-            305:data['cam5name'],
-            306:data['cam6name'],
-            307:data['cam7name'],
-            308:data['cam8name'],
         }
 
         
@@ -79,10 +75,6 @@ class UiCamClass(AbstractUiClass):
             342:'',
             343:'',
             344:'',
-            345:'',
-            346:'',
-            347:'',
-            348:'',
         }
         self.__btnofflines = {}
         for ky in self.__offlines:  

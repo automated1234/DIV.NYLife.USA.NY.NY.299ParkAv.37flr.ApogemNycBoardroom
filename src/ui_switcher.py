@@ -2,9 +2,8 @@
 
 from extronlib import event
 from extronlib.system import MESet
-from drivers.MirrorUI import Button, Label, Level
+from drivers.MirrorUI import Button
 from abstracts import AbstractUiClass
-from dv_switcher import SwitcherClass
 
 
 class UiSwitcherClass(AbstractUiClass):   

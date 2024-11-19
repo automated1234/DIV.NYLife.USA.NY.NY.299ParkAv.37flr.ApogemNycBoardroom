@@ -18,17 +18,13 @@
     "devices": [
         {
             "name": "IPCPPro555Qxi",
-            "part_number": "60-1917-01",
+            "part_number": "60-1911-01",
             "alias": "IPCPPro555Qxi",
             "network": {
                 "interfaces": [
                     {
-                        "address": "172.22.0.41",
+                        "address": "192.168.2.121",
                         "type": "LAN"
-                    },
-                    {
-                        "address": "192.168.254.250",
-                        "type": "AVLAN"
                     }
                 ]
             }

@@ -10,7 +10,8 @@ from drivers.MirrorUI import MirrorUIDevice, ModuleVersion
 from abstracts import *
 
 
-print('<< PROGRAM_LOAD_START >>  Ver:' + Version() + ', Module Ver:' + ModuleVersion())  
+print('<< PROGRAM_LOAD_START >>  Ver:' + Version() + ', MirrorVer:' + ModuleVersion())  
+print('<< labtest:{} >>'.format(data['labtest']))
 print(*todo, sep='\n--')
 
 
@@ -29,7 +30,7 @@ tp1 = MirrorUIDevice([tp1a])
 
 # 350 - 399
 import dv_display
-display1 = dv_display.SamsungQm75QClass('display1', data) 
+display1 = dv_display.SamsungQm75QClass('display1', data, processor) 
 
 
 displays = {

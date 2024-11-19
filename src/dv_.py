@@ -36,7 +36,6 @@ class RoomClass(AbstractDvClass):
                 # self.__onebeyond.power_me(True)
 
 
-
     def room_off(self):
         self.print_me('room_off room:{}'.format(self.alias))
         self.power = False

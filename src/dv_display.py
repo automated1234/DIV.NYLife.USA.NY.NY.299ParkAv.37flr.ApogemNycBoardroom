@@ -3,17 +3,19 @@
 from extronlib import event
 from extronlib.system import Timer, Wait
 from abstracts import AbstractDvClass
-from extronlib.interface import EthernetClientInterface
+from extronlib.interface import EthernetClientInterface, SerialInterface
 from util_stopwatch import StopwatchClass
 
 
 
 class SamsungQm75QClass(AbstractDvClass):
-    def __init__(self, alias, data):
+    def __init__(self, alias, data, processor):
         AbstractDvClass.__init__(self, alias, data, [])
 
 
-        self.driver = EthernetClientInterface(data['switcher'], data[alias])
+        # self.driver = EthernetClientInterface(data['switcher'], data[alias])
+        self.driver = SerialInterface(processor, data['display1'])
+
         self.__polling = Timer(60, self.__polling_cb)
         # self.__buffer=bytearray()
         self.__desired = False
@@ -27,14 +29,27 @@ class SamsungQm75QClass(AbstractDvClass):
 
             
  
-        @event(self.driver, ['Connected', 'Disconnected'])
-        def __driverConnectDisconnect(client, state):
-            self.print_me('__driverConnectDisconnect status:{} on IP:{}'.format(state, client.IPAddress))
-            if state=='Connected':
+        # @event(self.driver, ['Connected', 'Disconnected'])
+        # def __driverConnectDisconnect(client, state):
+        #     self.print_me('__driverConnectDisconnect status:{} on IP:{}'.format(state, client.IPAddress))
+        #     if state=='Connected':
+        #         self.online = True
+        #     else:
+        #         self.online = False
+        #     self._raise_event('ConnectionStatus', state, None)
+
+
+        @event(self.driver, ['Online', 'Offline'])
+        def __driveronlineoffline(interface, state):
+            self.print_me('__driveronlineoffline state:{}'.format(state))
+
+            if state == 'Online':
                 self.online = True
+                self._raise_event('ConnectionStatus', 'Connected', None)
+
             else:
                 self.online = False
-            self._raise_event('ConnectionStatus', state, None)
+                self._raise_event('ConnectionStatus', 'Disconnected', None)
 
 
         @event(self.driver, 'ReceiveData')
@@ -88,16 +103,16 @@ class SamsungQm75QClass(AbstractDvClass):
     def __polling_cb(self, timer, count): 
         self.print_me('__polling_cb online:{}, desired:{}, power:{}, busy:{}'.format(self.online, self.__desired, self.power, self.__busy))
             
-        if self.online != True:
-            self.__driver_connect()
+        # if self.online != True:
+        #     self.__driver_connect()
         # else:
         #     if self.power == False:
         #         self.__send(b'\x08\x22\x0A\x00\x05\x00\xC7')  #hdmi1  keep-alive
 
         
-    def __driver_connect(self):  
-        result = self.driver.Connect(5)
-        self.print_me('Connection attempted')
+    # def __driver_connect(self):  
+    #     result = self.driver.Connect(5)
+    #     self.print_me('Connection attempted')
 
 
     

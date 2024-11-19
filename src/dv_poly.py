@@ -14,7 +14,7 @@ class PolyG7500Class(AbstractDvClass):
         self.driver = GetConnectionHandler(poly_driver.SerialClass(processor, data[alias], Model='G7500'), 'Version', DisconnectLimit=5,  pollFrequency=10)
         # self.driver = GetConnectionHandler(poly_driver.SSHClass(data[alias], 22, Credentials=('admin', ''), Model='G7500'), 'CallInfoState', DisconnectLimit=5,  pollFrequency=10)
         self.driver.AutoReconnect = True
-        self.driver.Connect()
+        # self.driver.Connect()
 
 
         # self.__dialer_hook_state = 'Inactive'
@@ -75,7 +75,10 @@ class PolyG7500Class(AbstractDvClass):
         for cmd in self._subscriptions:
             self.driver.SubscribeStatus(cmd, None, __subscribe_cb)
 
-    #END OF CONSTRUCTOR
+
+        if data['labtest']==False:
+            self.driver.Connect()
+    #END CONSTRUCTOR
     
     
     

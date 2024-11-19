@@ -16,7 +16,7 @@ class BiampClass(AbstractDvClass):
         self.__driver = GetConnectionHandler(biamp_driver.SSHClass(data[alias], 22,  Credentials=('default', ''), Model='Tesira SERVER-IO'), 'VerboseMode', DisconnectLimit=5)
         # self.__driver = GetConnectionHandler(biamp_driver.SerialClass(processor, data[alias], Model='Tesira SERVER-IO'), 'VerboseMode', DisconnectLimit=5)
         self.__driver.AutoReconnect = True
-        self.__driver.Connect()
+        # self.__driver.Connect()
 
 
         self.__stopwatch = StopwatchClass('biampstopwatch', data, None, 1.0)  
@@ -82,6 +82,10 @@ class BiampClass(AbstractDvClass):
 
         for cmd in self._subscriptions:
             self.__driver.SubscribeStatus(cmd, None, __subscribe_cb)
+
+
+        if data['labtest']==False:
+            self.__driver.Connect()
 
 
         for tag in self.__tags:

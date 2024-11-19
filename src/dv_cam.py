@@ -12,11 +12,11 @@ class CamClass(AbstractDvClass):
         self.__driver = GetConnectionHandler(cam_driver.EthernetClass(data[alias], 5500,  Model='AutoTracker 3'), 'Power') 
 
         self.__driver.AutoReconnect = True
-        self.__driver.Connect()
         self.__autofocusstate = True
 
         self.__onebeyond = onebeyond
         self.__poly = poly
+        print('cam init:{}'.format(self.alias))
 
         self.__polling = Timer(10, self.__polling_loop) 
 
@@ -46,6 +46,9 @@ class CamClass(AbstractDvClass):
             
         for cmd in self._subscriptions:
             self.__driver.SubscribeStatus(cmd, None, __subscription_cb) 
+
+        if data['labtest']==False:
+            self.__driver.Connect()
     #END CONSTRUCTOR
 
         

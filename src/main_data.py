@@ -35,7 +35,7 @@ data = {
 
 
 
-    'poly':'COM3',  
+    'poly':'COM2',  
     'polyname':'VTC',
 
 
@@ -51,7 +51,7 @@ data = {
     'cam4name': 'Camera-4', 
    
 
-      'lights':'COM2',  
+    'lights':'COM3',  
 
     "lights_id": "11", 
     "lights_name1": "Meeting Hi",
@@ -82,16 +82,21 @@ data = {
     'cooldown':8,
 
 
-    'roomname':'24 Person Conference Room',  #aka HMO-18S506
+    'roomname':'Apogem NYC Boardroom', 
     'password':'1234',
     'enable_nightlyshutdown':False,
     'nightlyshutdown':'19:00:00',
     'enable_incomingcalls':False,
     'touchpanel_count':1,
+
+
+    'labtest':True
 }
 
 
 todo = [
     '<< TODO >>',
+    'ips',
+    'dsp tags'
 ]
 

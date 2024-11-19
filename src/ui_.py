@@ -298,7 +298,7 @@ class UiClass(AbstractUiClass):
             # self.__room.menu_change_sync(ky)
 
 
-        self.__switcher.video_mute_discrete(1, False)
+        # self.__switcher.video_mute_discrete(1, False)
         self.__uicam.currsubpage = sub
         self.__uibiamp.currsubpage = sub
 
@@ -332,8 +332,8 @@ class UiClass(AbstractUiClass):
         elif sub == 'main_center_vtclaptop':
             self.__show_subpage('main_center_vtclaptop')
             self.__show_subpage('main_up_vtclaptop')
-            self.__switcher.preset_me(6,1,2)
-            self.__switcher.preset_me(6,3,4)
+            # self.__switcher.preset_me(6,1,2)
+            # self.__switcher.preset_me(6,3,4)
             self.__onebeyond.power_me(True)
             self.__uidisplay.forcehdmi()
 
@@ -341,9 +341,9 @@ class UiClass(AbstractUiClass):
         elif sub == 'main_center_vtclaptop_take':
             self.__show_subpage('main_center_vtclaptop')
             self.__show_subpage('main_up_vtclaptop')
-            self.__switcher.preset_me(8,1,2)
-            self.__switcher.preset_me(8,3,4)
-            self.__switcher.switch_me(8,8)
+            # self.__switcher.preset_me(8,1,2)
+            # self.__switcher.preset_me(8,3,4)
+            # self.__switcher.switch_me(8,8)
             # self.__uiswitcher.select_input(5)
 
 
@@ -365,11 +365,11 @@ class UiClass(AbstractUiClass):
         elif sub == 'main_center_vtc_menu':
             self.__show_subpage('main_center_vtc_menu')
             self.__show_subpage('main_up_vtc')
-            self.__switcher.switch_me(6,1)
-            self.__switcher.switch_me(6,3)
-            self.__switcher.switch_me(7,2)
-            self.__switcher.switch_me(7,4)
-            self.__switcher.switch_me(6,8)
+            # self.__switcher.switch_me(6,1)
+            # self.__switcher.switch_me(6,3)
+            # self.__switcher.switch_me(7,2)
+            # self.__switcher.switch_me(7,4)
+            # self.__switcher.switch_me(6,8)
             self.__uiswitcher.select_input(6)
             self.__onebeyond.power_me(True)
             self.__uidisplay.forcehdmi()
