@@ -1,0 +1,54 @@
+{
+    "schemaVersion": "1.0.0",
+    "system": {
+        "name": "NYLife Apogem Nyc Boardroom",
+        "code_folder_path": "src",
+        "code_entry_file": "main.py",
+        "layout_folder_path": "layout",
+        "rfile_folder_path": "rfile",
+        "irfile_folder_path": "ir",
+        "sound_folder_path": "sound",
+        "system_id": "9701",
+        "author": {
+            "name": "ted.cygan"
+        },
+        "version": "0.0.1088",
+        "primary_device_alias": "IPCPPro550xi"
+    },
+    "devices": [
+        {
+            "name": "IPCPPro550xi",
+            "part_number": "60-1913-01",
+            "alias": "IPCPPro550xi",
+            "network": {
+                "interfaces": [
+                    {
+                        "address": "172.22.0.41",
+                        "type": "LAN"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "TLPPro1025T",
+            "part_number": "60-1565-02",
+            "alias": "TLPPro1025T",
+            "network": {
+                "host_network_type": "LAN",
+                "interfaces": [
+                    {
+                        "address": "172.22.0.42"
+                    }
+                ]
+            },
+            "ui": {
+                "layout_file": "DIV.NYLife.USA.NY.NY.299ParkAv.37flr.ApogemNycBoardroom_TLPPro1025T.gdl",
+                "enable_click_sound": true,
+                "press_feedback": "none",
+                "thumb_change_report_interval": 0.1,
+                "thumb_to_fill_sync_time": 0.5
+            },
+            "extron_control_web_id": "e1d21c90-b9e9-44e5-9a37-44ab2303d6be"
+        }
+    ]
+}

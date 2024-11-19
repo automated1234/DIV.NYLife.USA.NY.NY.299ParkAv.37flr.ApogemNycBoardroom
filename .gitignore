@@ -1,0 +1,7 @@
+#files not to be tracked
+*-certification.dat
+*-credential.dat
+
+
+#Folders not to be tracked
+**/__pycache__
