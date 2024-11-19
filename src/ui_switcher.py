@@ -25,37 +25,11 @@ class UiSwitcherClass(AbstractUiClass):
             402:data['in2name'],
             403:data['in3name'],
             404:data['in4name'],
-            405:data['in5name'],
-            406:data['in6name'],
-            407:data['in7name'],
-            408:data['in8name'],
-            409:data['in9name'],
-            410:data['in10name'],
-            411:data['in11name'],
-            412:data['in12name'],
-            413:data['in13name'],
-            414:data['in14name'],
-            415:data['in15name'],
-            416:data['in16name'],
         }
 
         self.__outs = {
             431:'',
             432:'',
-            433:'',
-            434:'',
-            435:'',
-            436:'',
-            437:'',
-            438:'',
-            439:'',
-            440:'',
-            441:'',
-            442:'',
-            443:'',
-            444:'',
-            445:'',
-            446:'',
         }
 
 
@@ -110,14 +84,45 @@ class UiSwitcherClass(AbstractUiClass):
             else:
                 self.__btnoffline.SetVisible(True)
                 
-        elif command == 'OutputTieStatus':
-            # if qualifier['Tie Type'] == 'Video' or  qualifier['Tie Type'] == 'Audio/Video':
-            out_ = int(qualifier['Output'])
-            in_ = int(value)
-            if out_ > 0 and out_ <= SwitcherClass.SWITCHER_OUTSCOUNT and in_ >= 0 and in_ <= SwitcherClass.SWITCHER_INSCOUNT:
-                self.__btnouts[out_ + 430].SetText(self.__ins[in_ + 400])  
-            # else:
-            #     self.print_me('ERR invalid in:{} or out:{}'.format(in_, out_))
+        elif command == 'MATRIXROUTE':
+            if value <= self._data['switcher_inscount']:
+                if qualifier <= self._data['switcher_outscount']:
+ 
+                    self.__btnouts[430+qualifier].SetText(self.__ins[value+400].alias)
+                    # self.__lbloutsstatus[480+qualifier].SetText(self.__ins[value+400].alias)
+
+                else:
+                    self.print_me('ERR switcher invalid out:{}'.format(qualifier))
+            else:
+                self.print_me('ERR switcher invalid in:{}'.format(value))
+
+        
+        # elif command == 'INPUTSYNCS':
+        #     if self.__lastsyncs  != value:
+        #         self.__lastsyncs = value
+
+        #         for ky in value:
+        #             if value[ky]=='1':
+        #                 self.__btnins[ky+400].SetState(1)
+        #                 # self.__btnins[ky+400].SetText('ACTIVE')
+        #                 self.__switcher.switch_me(ky, 1)
+        #                 self.__switcher.switch_me(ky, 2)
+
+        #             else:
+        #                 self.__btnins[ky+400].SetState(0)
+        #                 # self.__btnins[ky+400].SetText('')
+
+        #     self.print_me('WARN same input_syncs as last time checked:{}'.format(value))
+
+
+        # elif command == 'INPUTSYNC':
+        #     if qualifier==1:
+        #         self.__switcher.switch_me(value, 1)
+        #         self.__switcher.switch_me(value, 2)
+        #         self.__btnins[value+400].SetState(1)
+
+        #     else:
+        #         self.__btnins[value+400].SetState(0)
 
 
     def select_input(self, input):

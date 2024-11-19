@@ -1,7 +1,7 @@
 {
     "schemaVersion": "1.0.0",
     "system": {
-        "name": "NYLife Apogem Nyc Boardroom",
+        "name": "NYLife Apogem Nyc Boardroom LAB",
         "code_folder_path": "src",
         "code_entry_file": "main.py",
         "layout_folder_path": "layout",
@@ -55,4 +55,4 @@
             "extron_control_web_id": "e1d21c90-b9e9-44e5-9a37-44ab2303d6be"
         }
     ]
-// }
+}

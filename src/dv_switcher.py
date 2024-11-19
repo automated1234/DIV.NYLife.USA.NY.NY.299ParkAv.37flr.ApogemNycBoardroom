@@ -1,122 +1,152 @@
 # "author": "ted.cygan"
 
 from abstracts import AbstractDvClass
-from main_data import data
-
-import drivers.extr_matrix_XTPIICrossPointSeries_v1_12_0_1 as switcher_driver
-from drivers.ConnectionHandler import GetConnectionHandler
-
-
-class SwitcherClass(AbstractDvClass):
-    SWITCHER_INSCOUNT = data['switcher_inscount']
-    SWITCHER_OUTSCOUNT = data['switcher_outscount']
+from extronlib import event
+from extronlib.system import Timer
+from extronlib.interface import EthernetClientInterface
 
 
+class AtlonaAtOmeMs42Class(AbstractDvClass):
     def __init__(self, alias, data):
-        AbstractDvClass.__init__(self, alias, data, ['ConnectionStatus', 'InputSignalStatus','OutputTieStatus', 'VideoMute'])
+        AbstractDvClass.__init__(self, alias, data, [])
         
-        self.__driverraw = switcher_driver.EthernetClass(data[alias], 23, Model='XTP II CrossPoint 1600')
-        self.__driverraw.devicePassword = 'password'
-        self.__driverraw.NumberofInputs = data['switcher_inscount']
-        self.__driverraw.NumberofOutputs = data['switcher_outscount']
-        self.__driver = GetConnectionHandler(self.__driverraw, 'ExecutiveMode', DisconnectLimit=5, pollFrequency=15)
 
-        self.__driver.AutoReconnect = True
-        self.__driver.Connect()
-
-        self.__videomutedemo = 'Off'
+        self.driver = EthernetClientInterface(data['switcher'], 9000)
+        self.__polling = Timer(60, self.__polling_cb)
+        self.__buffer=''
 
 
-        def __subscribe_cb(command, value, qualifier): 
-            self.print_me('__subscribe_cb > c:{}, v:{}, q:{}'.format(command, value, qualifier))
+        @event(self.driver, ['Connected', 'Disconnected'])
+        def __driverConnectDisconnect(client, state):
+            self.print_me('__driverConnectDisconnect status:{} on IP:{}'.format(state, client.IPAddress))
+            if state=='Connected':
+                self.online = True
+            else:
+                self.online = False
+            self._raise_event('ConnectionStatus', state, None)
 
-            if command == 'ConnectionStatus':
-                if value == 'Connected':   
-                    self.online = True
-                else:
-                    self.online = False
 
-            self._raise_event(command, value, qualifier)
-            
-        for cmd in self._subscriptions:
-            self.__driver.SubscribeStatus(cmd, None, __subscribe_cb) 
-        
+        @event(self.driver, 'ReceiveData')
+        def __driverReceiveData(client, rcvdata):  #bytes received
+            self.print_me('rx <{}>'.format(rcvdata))
+            self.__processrx(rcvdata)
     #END CONSTRUCTOR
 
 
+    def __polling_cb(self, timer, count): 
+        self.print_me('__polling_cb online:{}'.format(self.online))
+            
+        if self.online != True:
+            self.__driver_connect()
+        else:
+            # if self.power == False:
+            self.__send('InputStatus\x0d')  
 
-    def preset_me(self, inp, st, en):
-        en+=1
-        for x in range(st, en, 1):  
-            self.switch_me(inp, x)
+        
+    def __driver_connect(self):  
+        result = self.driver.Connect(5)
+        self.print_me('Connection attempted')
+
+    
+    def __send(self, val):
+        self.print_me('tx <{}>'.format(val))
+        self.driver.Send(val)
 
 
     def switch_me(self, innumber, outnumber):
-        self.print_me('switch_me > in:{}, out:{}'.format(innumber, outnumber))
+        self.print_me('switch_me > in:{}, out:{}, '.format(innumber, outnumber))
 
-        if innumber >= 0 and outnumber > 0 and innumber <= SwitcherClass.SWITCHER_INSCOUNT and outnumber <= SwitcherClass.SWITCHER_OUTSCOUNT:
-            if outnumber == 8:
-                tietype ='Audio'
-            else:
-                tietype ='Video'
-
+        if innumber <= self._data['switcher_inscount'] and outnumber <= self._data['switcher_outscount']:
             if self.online:
-                self.__driver.Set('MatrixTieCommand', None, {'Input': str(innumber), 'Output': str(outnumber), 'Tie Type':tietype})
-                # if outnumber == 6: #vtc content
-                #     self.__driver.Set('MatrixTieCommand', None, {'Input': str(innumber), 'Output': '9', 'Tie Type':'Audio'})
-
+                self.__send('x{}AVx{}\x0d'.format(innumber, outnumber))
             else:
-                self._raise_event('OutputTieStatus', innumber, {'Output': str(outnumber),'Tie Type':tietype})
-        else:
-            self.print_me('ERR switch_me invalid in:{} or out:{}'.format(innumber, outnumber))
-
-
-    def video_mute(self, out):
-        self.print_me('video_mute > out:{}'.format(out))
-
-        if out > 0 and out <= SwitcherClass.SWITCHER_OUTSCOUNT:
-            if self.online:
-                val = self.__driver.ReadStatus('VideoMute', {'Output': str(out)})
-                if val == 'On':
-                    self.__driver.Set('VideoMute', 'Off', {'Output': str(out)})
-                else:
-                    self.__driver.Set('VideoMute', 'On', {'Output': str(out)})
-           
-                self.__driver.Update('VideoMute', {'Output': str(out)})
-                return self.__driver.ReadStatus('VideoMute', {'Output': str(out)})
-            else:
-                if self.__videomutedemo == 'On':
-                    self.__videomutedemo = 'Off'
-                else:
-                    self.__videomutedemo = 'On'
-
-                self._raise_event('VideoMute', self.__videomutedemo, {'Output': str(out)})
-                return self.__videomutedemo
+                self._raise_event('MATRIXROUTE', innumber, outnumber)
 
         else:
-            self.print_me('ERR video_mute invalid out:{}'.format(out))
-
-    def get_videomute(self, out):
-        return self.__driver.ReadStatus('VideoMute', {'Output': str(out)})
+            self.print_me('ERR invalid in:{} or out:{}'.format(innumber, outnumber))
 
 
-
-    def video_mute_discrete(self, out, val):
-        self.print_me('video_mute_discrete > out:{}, val:{}'.format(out, val))
-
-        if out > 0 and out <= SwitcherClass.SWITCHER_OUTSCOUNT:
-            if self.online:
-                if val:
-                    self.__driver.Set('VideoMute', 'On', {'Output': str(out)})
-                    self.__videomutedemo == 'On'
-                else:
-                    self.__driver.Set('VideoMute', 'Off', {'Output': str(out)})
-                    self.__videomutedemo == 'Off'
-
-        else:
-            self.print_me('ERR video_mute_discrete invalid out:{}'.format(out))
+    
+    def rx_inject(self, val):  
+        self.print_me('TRUE rx_inject (orr) <{}>'.format(val))
+        self.__processrx(val)
 
 
+    def __processrx(self, rcvdata):
+
+        try:
+            self.__buffer+=rcvdata.decode()
+            # self.__buffer+=rcvdata
+
+        except Exception as e:
+            self.print_me('ERR ReceiveData <{}>, err:{}'.format(rcvdata, type(e)))
 
 
-        
+        while True:
+            try:
+                # partition() finds the first occurance of '\r' and returns everything
+                extracted, delimiter, remainder = self.__buffer.partition('\r\n')
+
+                if not delimiter:
+                    break
+
+                # Save any left over data for the next time around the loop.
+                self.__buffer = remainder
+
+
+                if 'Command FAILED' in extracted:
+                    self.print_me('ERR:{}'.format(extracted))
+
+                # Switcher    switcher          -->  rx <b'InputStatus 000000\r\n'>
+                elif extracted.startswith('InputStatus '):
+                    syncs = {
+                        1:extracted[12:13],
+                        2:extracted[13:14],
+                        3:extracted[14:15],
+                        4:extracted[15:16],
+                        # 5:extracted[16:17],
+                    }
+                    self._raise_event('INPUTSYNCS', syncs, None)
+
+                elif extracted.startswith('InputStatus'):
+                    syncs = {
+                        1:extracted[11:12],
+                        2:extracted[13:14],
+                    }
+                    self._raise_event('INPUTSYNC', int(syncs[1]), int(syncs[2]))
+                
+                # Switcher    switcher          -->  rx <b'x2AVx1,x2AVx2\r\n'>
+                elif 'AVx' in extracted:
+                    self.print_me('extracted:{}, len:{}'.format(extracted, len(extracted)))
+                    outs = []
+                    outs = extracted.split(',')
+
+                    for ou in outs:
+                        self._raise_event('MATRIXROUTE', int(ou[1:2]), int(ou[-1]))
+
+                    
+            except ValueError:
+                self.print_me('ERR extracted:{}, len:{}, delimiter:{} something went wrong'.format(extracted, len(extracted), repr(delimiter)))
+
+
+            # AtlonaAtOm    switcher          -->  tx <x1AVx1\x0d>
+            # AtlonaAtOm    switcher          -->  rx <b'Command FAILED: (]x1AVx1)\r\n'>
+
+            # AtlonaAtOm    switcher          -->  switch_me > in:HDBaseT 2, out:HDMI,
+            # AtlonaAtOm    switcher          -->  tx <x2AVx2\x0d>
+            # AtlonaAtOm    switcher          -->  rx <b'x2AVx1,x2AVx2\r\n'>
+            # AtlonaAtOm    switcher          -->  switch_me > in:HDBaseT 2, out:HDBaseT,
+            # AtlonaAtOm    switcher          -->  tx <x2AVx1\x0d>
+            # AtlonaAtOm    switcher          -->  rx <b'x2AVx1,x2AVx2\r\n'>
+
+            # AtlonaAtOm    switcher          -->  tx <InputStatus\x0d>
+            # AtlonaAtOm    switcher          -->  rx <b'InputStatus 000000\r\n'>
+            # AtlonaAtOm  switcher          -->  __polling_cb online:True
+            # AtlonaAtOm  switcher          -->  tx <InputStatus\x0d>
+            # AtlonaAtOm  switcher          -->  rx <b'InputStatus 100000\r\n'>
+
+            # AtlonaAtOm  switcher          -->  rx <b'InputStatus1 0\r\n'>
+            # AtlonaAtOm  switcher          -->  ERR ReceiveData <b'InputStatus1 0\r\n'>, err:<class 'TypeError'>
+            # AtlonaAtOm  switcher          -->  rx <b'InputStatus1 1\r\n'>
+            # AtlonaAtOm  switcher          -->  ERR ReceiveData <b'InputStatus1 1\r\n'>, err:<class 'TypeError'>
+

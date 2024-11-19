@@ -5,15 +5,14 @@ from extronlib import event
 from drivers.MirrorUI import Button, Label, Level
 from extronlib.system import MESet, Wait
 from abstracts import *
-import ui_biamp, ui_switcher, ui_cam, ui_cable, ui_display, ui_poly, ui_lights
+import ui_biamp, ui_switcher, ui_cam, ui_display, ui_poly, ui_lights
 
 
 
 class UiCreateClass():
-    def __init__(self, alias, tp, data, switcher, biamp, cams, cable, displays, room, poly, lights, onebeyond):
+    def __init__(self, alias, tp, data, switcher, biamp, cams, displays, room, poly, lights, onebeyond):
         uiswitcher = ui_switcher.UiSwitcherClass(alias, tp, data, switcher)
         self.uicam = ui_cam.UiCamClass(alias, tp, data, cams, switcher)
-        uicable = ui_cable.UiCableClass(alias, tp, data, cable, switcher)
         uidisplay = ui_display.UiDisplayClass(alias, tp, data, displays)
         uipoly = ui_poly.UiPolyClass(alias, tp, data, poly)
         uilights = ui_lights.UiLightsClass(alias, tp, data, lights)
@@ -124,12 +123,6 @@ class UiClass(AbstractUiClass):
         for ky in self.__maincentersubs:
             self.__btnmaincentersubs[ky] = Button(tp, ky)  #, holdTime=3)
         self.__msetbtnmaincentersubs = MESet(list(self.__btnmaincentersubs.values()))
-
-
-
-        # for ky in __rmlabels:
-        #     __lblrmlabels[ky] = Label(tp, ky)
-        #     __lblrmlabels[ky].SetText(self._data[__rmlabels[ky]])
 
 
         self.__btnreturn = Button(tp, 100)

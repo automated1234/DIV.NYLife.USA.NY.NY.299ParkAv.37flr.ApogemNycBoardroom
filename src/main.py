@@ -2,7 +2,7 @@
 
 # import sys
 # sys.dont_write_bytecode = True
-from extronlib import event, Version
+from extronlib import Version
 from extronlib.device import ProcessorDevice, UIDevice, SPDevice
 from extronlib.system import Clock
 from main_data import data, todo
@@ -14,7 +14,7 @@ print('<< PROGRAM_LOAD_START >>  Ver:' + Version() + ', Module Ver:' + ModuleVer
 print(*todo, sep='\n--')
 
 
-processor = ProcessorDevice('IPCPPro550xi')
+processor = ProcessorDevice('IPCPPro555Qxi')
 
 tp1a = UIDevice('TLPPro1025T')
 tp1 = MirrorUIDevice([tp1a])
@@ -24,8 +24,6 @@ tp1 = MirrorUIDevice([tp1a])
 
 
 # 200
-import dv_cable
-cable = dv_cable.ContemporaryReClass('cable', data, processor)
 
 
 
@@ -33,20 +31,9 @@ cable = dv_cable.ContemporaryReClass('cable', data, processor)
 import dv_display
 display1 = dv_display.SamsungQm75QClass('display1', data) 
 
-import dv_display
-display2 = dv_display.SamsungQm75QClass('display2', data) 
-
-import dv_display
-display3 = dv_display.SamsungQm75QClass('display3', data) 
-
-import dv_display
-display4 = dv_display.SamsungQm75QClass('display4', data) 
 
 displays = {
     1:display1,
-    2:display2,
-    3:display3,
-    4:display4,
 }
 
 
@@ -59,7 +46,7 @@ biamp = dv_biamp.BiampClass('biamp', data, dv_biamp_data.data, processor)
 
 # 400 - 599
 import dv_switcher
-switcher = dv_switcher.SwitcherClass('switcher', data)
+switcher = dv_switcher.AtlonaAtOmeMs42Class('switcher', data)
 
 
 # 800
@@ -82,10 +69,6 @@ cam1 = dv_cam.CamClass('cam1', data, onebeyond, poly)
 cam2 = dv_cam.CamClass('cam2', data, onebeyond, poly)
 cam3 = dv_cam.CamClass('cam3', data, onebeyond, poly)
 cam4 = dv_cam.CamClass('cam4', data, onebeyond, poly)
-cam5 = dv_cam.CamClass('cam5', data, onebeyond, poly)
-cam6 = dv_cam.CamClass('cam6', data, onebeyond, poly)
-cam7 = dv_cam.CamClass('cam7', data, onebeyond, poly)
-cam8 = dv_cam.CamClass('cam8', data, onebeyond, poly)
 
 
 cams = {
@@ -93,10 +76,6 @@ cams = {
     2:cam2,
     3:cam3,
     4:cam4,
-    5:cam5,
-    6:cam6,
-    7:cam7,
-    8:cam8,
 }
 
 
@@ -107,7 +86,7 @@ room = dv_.RoomClass('room', data, switcher, biamp, cams, displays, poly, onebey
 
 
 import ui_
-tp1pages = ui_.UiCreateClass('tp1', tp1, data, switcher, biamp, cams, cable, displays, room, poly, lights, onebeyond)
+tp1pages = ui_.UiCreateClass('tp1', tp1, data, switcher, biamp, cams, displays, room, poly, lights, onebeyond)
 
 
 def __clock_room_off_cb():
