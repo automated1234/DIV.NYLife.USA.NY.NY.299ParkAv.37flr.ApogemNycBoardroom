@@ -86,9 +86,7 @@ class UiSwitcherClass(AbstractUiClass):
         elif command == 'MATRIXROUTE':
             if value <= self._data['switcher_inscount']:
                 if qualifier <= self._data['switcher_outscount']:
- 
-                    self.__btnouts[430+qualifier].SetText(self.__ins[value+400].alias)
-                    # self.__lbloutsstatus[480+qualifier].SetText(self.__ins[value+400].alias)
+                    self.__btnouts[430+qualifier].SetText(self.__ins[value+400])
 
                 else:
                     self.print_me('ERR switcher invalid out:{}'.format(qualifier))

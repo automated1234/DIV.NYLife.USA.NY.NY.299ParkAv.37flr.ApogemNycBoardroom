@@ -9,9 +9,7 @@ class RoomClass(AbstractDvClass):
     def __init__(self, alias, data, switcher, biamp, cams, displays, poly, onebeyond):
         AbstractDvClass.__init__(self, alias, data, [])
 
-        self.__switcher = switcher
         self.__biamp = biamp
-        self.__cams = cams
         self.__displays = displays
         self.__poly = poly
         self.__onebeyond = onebeyond
@@ -51,7 +49,6 @@ class RoomClass(AbstractDvClass):
         self.__poly.hooks('Hangup All') 
         self.__poly.power_me(False)
         self.__onebeyond.power_me(False)
-        self.__switcher.preset_me(0, 1, 8)
 
 
 

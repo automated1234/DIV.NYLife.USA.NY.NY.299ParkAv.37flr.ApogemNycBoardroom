@@ -18,20 +18,20 @@ data = {
 
    
     'in0name': 'Blank',  
-    'in1name': 'Table Laptop-1',  
+    'in1name': 'Table Laptop-1',  #soft codec laptop
     'in2name': 'Table Laptop-2',  
     'in3name': 'blank3',  
     'in4name': 'blank4',  
 
 
-    'out1name': 'Display 1',  
+    'out1name': 'Codec Content',  
     'out2name': 'blank',  
 
 
 
 
     'display1': 'COM1',
-    'display1name': 'Display 1',           #SAMSUNG QN85Q60CAF  //ofe, need to verify
+    'display1name': 'Display',           #SAMSUNG QN85Q60CAF  //ofe, need to verify make and model
 
 
 

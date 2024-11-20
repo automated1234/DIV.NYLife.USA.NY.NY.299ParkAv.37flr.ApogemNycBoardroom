@@ -131,9 +131,13 @@ class UiPolyClass(AbstractUiClass):
 
         __shares = {
             # 1250:0,
-            1251:2,
-            1252:3,
-            1253:8,
+            1251:1,
+            1252:2,
+        }
+
+        __sharenames = {
+            1251:data['in1name'],
+            1252:data['in2name'],
         }
 
 
@@ -189,6 +193,7 @@ class UiPolyClass(AbstractUiClass):
 
         for ky in __shares:  
             self.__btnshares[ky]=Button(tp, ky)
+            self.__btnshares[ky].SetText(__sharenames[ky])
         self.__msetbtnshares = MESet(list(self.__btnshares.values()))
 
 

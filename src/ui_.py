@@ -66,9 +66,9 @@ class UiClass(AbstractUiClass):
 
 
         self.__maincentersubs = {
-            121:'main_center_present_laptop',
-            122:'main_center_present_cable',
-            123:'main_center_present_vtc',
+            # 121:'main_center_present_laptop',
+            # 122:'main_center_present_cable',
+            # 123:'main_center_present_vtc',
 
             131:'main_center_vtc_cam',
             # 132:'main_center_vtc_source',
@@ -310,11 +310,11 @@ class UiClass(AbstractUiClass):
             # self.__biamp.mute_descrete2('RM1_VTC_RX', 'On')
 
 
-        elif sub == 'main_center_present_cable':
-            self.__show_subpage('main_center_present_cable')
-            self.__show_subpage('main_up_present')
-            self.__uiswitcher.select_input(4)
-            self.__uidisplay.forcehdmi()
+        # elif sub == 'main_center_present_cable':
+        #     self.__show_subpage('main_center_present_cable')
+        #     self.__show_subpage('main_up_present')
+        #     self.__uiswitcher.select_input(4)
+        #     self.__uidisplay.forcehdmi()
 
 
         elif sub == 'main_center_present_laptop':
@@ -324,16 +324,14 @@ class UiClass(AbstractUiClass):
             self.__uidisplay.forcehdmi()
 
 
-        elif sub == 'main_center_present_vtc':
-            self.__show_subpage('main_center_present_vtc')
-            self.__show_subpage('main_up_present')
+        # elif sub == 'main_center_present_vtc':
+        #     self.__show_subpage('main_center_present_vtc')
+        #     self.__show_subpage('main_up_present')
 
 
         elif sub == 'main_center_vtclaptop':
             self.__show_subpage('main_center_vtclaptop')
             self.__show_subpage('main_up_vtclaptop')
-            # self.__switcher.preset_me(6,1,2)
-            # self.__switcher.preset_me(6,3,4)
             self.__onebeyond.power_me(True)
             self.__uidisplay.forcehdmi()
 
@@ -341,10 +339,7 @@ class UiClass(AbstractUiClass):
         elif sub == 'main_center_vtclaptop_take':
             self.__show_subpage('main_center_vtclaptop')
             self.__show_subpage('main_up_vtclaptop')
-            # self.__switcher.preset_me(8,1,2)
-            # self.__switcher.preset_me(8,3,4)
-            # self.__switcher.switch_me(8,8)
-            # self.__uiswitcher.select_input(5)
+            self.__switcher.switch_me(1,1)
 
 
         elif sub == 'main_center_vtc_cam':
@@ -365,12 +360,8 @@ class UiClass(AbstractUiClass):
         elif sub == 'main_center_vtc_menu':
             self.__show_subpage('main_center_vtc_menu')
             self.__show_subpage('main_up_vtc')
-            # self.__switcher.switch_me(6,1)
-            # self.__switcher.switch_me(6,3)
-            # self.__switcher.switch_me(7,2)
-            # self.__switcher.switch_me(7,4)
-            # self.__switcher.switch_me(6,8)
-            self.__uiswitcher.select_input(6)
+            self.__switcher.switch_me(1,1)
+            self.__uiswitcher.select_input(1)
             self.__onebeyond.power_me(True)
             self.__uidisplay.forcehdmi()
 
