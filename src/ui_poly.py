@@ -12,6 +12,8 @@ class UiPolyClass(AbstractUiClass):
         AbstractUiClass.__init__(self, alias+'poly', tp, data)
 
         self.__btnoffline = Button(tp, 1199)
+        self.__btnoffline.SetVisible(not poly.online)
+
 
         self.__lblincall = Label(tp, 1173)
         self.__lblincall.SetVisible(False)

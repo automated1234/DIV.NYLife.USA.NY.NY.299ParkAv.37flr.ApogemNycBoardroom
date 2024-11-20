@@ -30,6 +30,8 @@ class UiDisplayClass(AbstractUiClass):
         self.__btnofflines = {}
         for ky in self.__offlines:  
             self.__btnofflines[ky]=Button(tp, ky)
+            self.__btnofflines[ky].SetVisible(not displays[ky-390].online)
+
 
 
         self.__ons = {

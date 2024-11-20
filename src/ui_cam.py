@@ -79,6 +79,8 @@ class UiCamClass(AbstractUiClass):
         self.__btnofflines = {}
         for ky in self.__offlines:  
             self.__btnofflines[ky]=Button(tp, ky)
+            self.__btnofflines[ky].SetVisible(not cams[ky-340].online)
+
 
 
         for ky in self.__camselects:

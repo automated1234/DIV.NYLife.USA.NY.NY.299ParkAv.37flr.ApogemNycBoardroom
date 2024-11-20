@@ -10,9 +10,11 @@ class UiLightsClass(AbstractUiClass):
     def __init__(self, alias, tp, data, lights): 
         AbstractUiClass.__init__(self, alias+'lights', tp, data)
 
-        self.__btnoffline = Button(tp, 899)
         self.__lights = lights
         self.__lights.subscribe(self.__driver_event_cb)
+
+        self.__btnoffline = Button(tp, 899)
+        self.__btnoffline.SetVisible(not lights.online)
 
         # tbd
         __lights = {
