@@ -152,15 +152,6 @@ class BiampClass(AbstractDvClass):
 
             self.__driver.Set('MuteControl', newval, {'Instance Tag': mytag['instanceTag'], 'Channel': mytag['channel']})
 
-            # james seo lazy hacks
-            if mytag['instanceTag']=='RM1_PRG':
-                self.__driver.Set('MuteControl', newval, {'Instance Tag': 'PGM_FAR', 'Channel': '1'})
-            if mytag['instanceTag']=='RM1_ATC_RX':
-                self.__driver.Set('MuteControl', newval, {'Instance Tag': 'ATC_FAR', 'Channel': '1'})
-            if mytag['instanceTag']=='RM1_VTC_RX':
-                self.__driver.Set('MuteControl', newval, {'Instance Tag': 'USB_FAR', 'Channel': '1'})
-
-
 
     def mute_discrete(self, mytag, val):
         self.print_me('mute_discrete {}, chan:{}, {}'.format(mytag['instanceTag'], mytag['channel'], val))

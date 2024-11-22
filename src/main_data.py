@@ -9,7 +9,7 @@
 
 
 data = {
-    'biamp': '172.22.0.232',   
+    'biamp': '10.239.1.232',   
 
 
     'switcher': '172.22.0.43',            #ATLONA AT-OME-MS42
@@ -35,23 +35,23 @@ data = {
 
 
 
-    'poly':'COM2',  
+    'poly':'COM3',  
     'polyname':'VTC',
 
 
     'onebeyond':'172.22.0.55',      #CRESTRON IV-SAM-VX2-S
 
-    'cam1': '172.22.0.51',               
+    'cam1': '10.239.1.131',               
     'cam1name': 'Camera-1',  
-    'cam2': '172.22.0.53',               
+    'cam2': '10.239.1.132',               
     'cam2name': 'Camera-2', 
-    'cam3': '172.22.0.52',               
+    'cam3': '10.239.1.133',               
     'cam3name': 'Camera-3', 
-    'cam4': '172.22.0.54',               
+    'cam4': '10.239.1.134',               
     'cam4name': 'Camera-4', 
    
 
-    'lights':'COM3',  
+    'lights':'COM2',  
 
     "lights_id": "11", 
     "lights_name1": "Meeting Hi",
@@ -90,7 +90,7 @@ data = {
     'touchpanel_count':1,
 
 
-    'labtest':True
+    'labtest':False
 }
 
 
