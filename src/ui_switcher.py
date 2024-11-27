@@ -58,7 +58,7 @@ class UiSwitcherClass(AbstractUiClass):
             if button is not None:
                 if state == 'Tapped':
                     self.select_input(button.ID-400)
-                    self.__switcher.switch_me(self.__currin,  button.ID-430)  
+                    self.__switcher.switch_me(self.__currin,  1)  
 
 
 

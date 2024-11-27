@@ -131,39 +131,24 @@ class PolyG7500Class(AbstractDvClass):
             if val == 0:
                 self.driver.Set('VideoContentSource', 'Stop')
                 self.__biamp.logic_state_raw('RM1_VTC_CONTENT_AUDIO', '1', True)
-                self.__switcher.switch_me(val, 5)
-                self.__switcher.switch_me(val, 8)
-
-                self.__switcher.switch_me(6, 1)
-                self.__switcher.switch_me(7, 2)
-                self.__switcher.switch_me(6, 3)
-                self.__switcher.switch_me(7, 4)
+                # self.__switcher.switch_me(val, 5)
 
 
             elif val == 10:
                 self.driver.Set('VideoContentSource', '2')  #tbd if 1
                 self.__biamp.logic_state_raw('RM1_VTC_CONTENT_AUDIO', '1', False)
                 self.__biamp.mute_descrete_raw('PGM_FAR', '1', 'Off')
+                self.__switcher.switch_me(self.shareinput, 1)
 
-                self.__switcher.switch_me(self.shareinput, 5)
-                self.__switcher.switch_me(self.shareinput, 8)
-
-                self.__switcher.switch_me(6, 1)
-                self.__switcher.switch_me(7, 2)
-                self.__switcher.switch_me(6, 3)
-                self.__switcher.switch_me(7, 4)
 
             else:
                 self.shareinput=val  
                 if self.__sharing == False:
                     self.__switcher.switch_me(self.shareinput, 1)
-                    self.__switcher.switch_me(self.shareinput, 3)
-                    self.__switcher.switch_me(self.shareinput, 8)
                     self.__biamp.mute_descrete_raw('PGM_FAR', '1', 'On')
 
                 else:
-                    self.__switcher.switch_me(self.shareinput, 5)
-                    self.__switcher.switch_me(self.shareinput, 8)
+                    self.__switcher.switch_me(self.shareinput, 1)
             
             
             self.driver.Update('VideoContentSource')

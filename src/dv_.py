@@ -10,6 +10,7 @@ class RoomClass(AbstractDvClass):
         AbstractDvClass.__init__(self, alias, data, [])
 
         self.__biamp = biamp
+        self.__switcher = switcher
         self.__displays = displays
         self.__poly = poly
         self.__onebeyond = onebeyond
@@ -28,6 +29,7 @@ class RoomClass(AbstractDvClass):
                 for disp in self.__displays:
                     self.__displays[disp].power_me(True)
 
+                self.__switcher.power_me(True)
                 self.__biamp.preset('RM1_ON')
                 self.__poly.power_me(True)
                 self._raise_event('On', None, None)

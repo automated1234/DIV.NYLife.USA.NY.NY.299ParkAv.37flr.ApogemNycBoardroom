@@ -66,7 +66,14 @@ class AtlonaAtOmeMs42Class(AbstractDvClass):
             self.print_me('ERR invalid in:{} or out:{}'.format(innumber, outnumber))
 
 
-    
+
+    def power_me(self, desired):
+        self.print_me('power_me > desired:{}'.format(desired))
+        if self.online:
+            if desired:
+                self.__send('PWON\x0d')
+            
+
     def rx_inject(self, val):  
         self.print_me('TRUE rx_inject (orr) <{}>'.format(val))
         self.__processrx(val)

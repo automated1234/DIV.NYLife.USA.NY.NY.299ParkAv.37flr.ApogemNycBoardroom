@@ -138,8 +138,8 @@ class UiPolyClass(AbstractUiClass):
         }
 
         __sharenames = {
-            1251:data['in1name'],
-            1252:data['in2name'],
+            1251:data['in3name'],
+            1252:data['in4name'],
         }
 
 

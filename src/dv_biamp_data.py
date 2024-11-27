@@ -53,15 +53,15 @@ data = [
     #     "channel":"1",
     #     'subscription':'LevelControl'
     # },
-    {
-        "name":'RM1_VOICELIFT',
-        "nameID": 9999,
-        "onID": 617,
-        "offID": 616,
-        "instanceTag": "RM1_VOICELIFT",
-        "channel":"1",
-        'subscription':'MuteControlDiscrete'
-    },
+    # {
+    #     "name":'RM1_VOICELIFT',
+    #     "nameID": 9999,
+    #     "onID": 617,
+    #     "offID": 616,
+    #     "instanceTag": "RM1_VOICELIFT",
+    #     "channel":"1",
+    #     'subscription':'MuteControlDiscrete'
+    # },
     {
         "name":'mic mute',
         "nameID": 9999,

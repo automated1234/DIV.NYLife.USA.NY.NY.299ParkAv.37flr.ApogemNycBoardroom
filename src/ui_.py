@@ -80,7 +80,7 @@ class UiClass(AbstractUiClass):
 
 
             141:'main_center_room_display',
-            142:'main_center_room_audio',
+            # 142:'main_center_room_audio',
             143:'main_center_room_vtc',
             144:'main_center_room_lights',
             # 100:'main_return',
@@ -320,7 +320,7 @@ class UiClass(AbstractUiClass):
         elif sub == 'main_center_present_laptop':
             self.__show_subpage('main_center_present_laptop')
             self.__show_subpage('main_up_present')
-            self.__uiswitcher.select_input(0)
+            # self.__uiswitcher.select_input(0)
             self.__uidisplay.forcehdmi()
 
 
@@ -360,8 +360,8 @@ class UiClass(AbstractUiClass):
         elif sub == 'main_center_vtc_menu':
             self.__show_subpage('main_center_vtc_menu')
             self.__show_subpage('main_up_vtc')
-            self.__switcher.switch_me(1,1)
-            self.__uiswitcher.select_input(1)
+            self.__switcher.switch_me(3,1)
+            self.__uiswitcher.select_input(3)
             self.__onebeyond.power_me(True)
             self.__uidisplay.forcehdmi()
 
