@@ -12,16 +12,16 @@ data = {
     'biamp': '10.239.1.232',   
 
 
-    'switcher': '172.22.0.43',            #ATLONA AT-OME-MS42
+    'switcher': '10.239.1.62',            #ATLONA AT-OME-MS42
     'switcher_inscount': 4,
     'switcher_outscount': 2,
 
    
     'in0name': 'Blank',  
-    'in1name': 'Table Laptop-1',  #soft codec laptop
-    'in2name': 'Table Laptop-2',  
-    'in3name': 'blank3',  
-    'in4name': 'blank4',  
+    'in1name': 'blank1',
+    'in2name': 'blank2',  
+    'in3name': 'Table Laptop-1',  #soft codec laptop
+    'in4name': 'Table Laptop-2',  
 
 
     'out1name': 'Codec Content',  

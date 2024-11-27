@@ -57,10 +57,9 @@ class UiSwitcherClass(AbstractUiClass):
 
             if button is not None:
                 if state == 'Tapped':
-                    if button.ID==405:
-                        self.__select_input_special(8)
-                    else:
-                        self.select_input(button.ID-400)
+                    self.select_input(button.ID-400)
+                    self.__switcher.switch_me(self.__currin,  button.ID-430)  
+
 
 
         @event(list(self.__btnouts.values()), ['Pressed', 'Released'])
@@ -127,18 +126,6 @@ class UiSwitcherClass(AbstractUiClass):
         self.__msetbtnins.SetCurrent(self.__btnins[input+400])
 
 
-    def __select_input_special(self, input):
-        self.__currin = input
-        self.__msetbtnins.SetCurrent(self.__btnins[405])
-
-
-
-    # def __room_event_cb(self, command, value, qualifier):
-    #     self.print_me('__room_event_cb c:{}, v:{}, q:{}, currin:{}'.format(command, value, qualifier, self.__currin))
-
-    #     if command=='input_change':
-    #         if value != self.__currin:
-    #             self.select_input(value)
-
+   
 
 

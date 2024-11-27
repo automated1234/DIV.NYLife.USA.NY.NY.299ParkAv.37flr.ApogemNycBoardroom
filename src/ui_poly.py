@@ -133,8 +133,8 @@ class UiPolyClass(AbstractUiClass):
 
         __shares = {
             # 1250:0,
-            1251:1,
-            1252:2,
+            1251:3,
+            1252:4,
         }
 
         __sharenames = {
