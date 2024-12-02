@@ -339,7 +339,7 @@ class UiClass(AbstractUiClass):
         elif sub == 'main_center_vtclaptop_take':
             self.__show_subpage('main_center_vtclaptop')
             self.__show_subpage('main_up_vtclaptop')
-            self.__switcher.switch_me(3,1)
+            self.__switcher.switch_me(1,1)
 
 
         elif sub == 'main_center_vtc_cam':

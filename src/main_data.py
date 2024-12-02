@@ -18,7 +18,7 @@ data = {
 
    
     'in0name': 'Blank',  
-    'in1name': 'blank1',
+    'in1name': 'Table Laptop-1',  #usbc for laptop conf
     'in2name': 'blank2',  
     'in3name': 'Table Laptop-1',  #soft codec laptop
     'in4name': 'Table Laptop-2',  
