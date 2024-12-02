@@ -60,7 +60,7 @@ class UiClass(AbstractUiClass):
             112:'main_center_vtc_menu',
             113:'main_center_vtclaptop',
             114:'main_center_atc',  
-            115:'main_center_present_laptop',
+            # 115:'main_center_present_laptop',
             116:'main_center_room_display', 
         }
 
