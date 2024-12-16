@@ -18,10 +18,10 @@ data = {
 
    
     'in0name': 'Blank',  
-    'in1name': 'Table Laptop-1',  #usbc for laptop conf
+    'in1name': 'Table Laptop',  #usb-c for laptop conf
     'in2name': 'blank2',  
-    'in3name': 'Table Laptop-1',  #soft codec laptop
-    'in4name': 'Table Laptop-2',  
+    'in3name': 'Table Laptop',  #table laptop1
+    'in4name': 'Table Laptop',  #table laptop2
 
 
     'out1name': 'Codec Content',  
@@ -31,7 +31,7 @@ data = {
 
 
     'display1': 'COM1',
-    'display1name': 'Display',           #SAMSUNG QN85Q60CAF  //ofe, need to verify make and model
+    'display1name': 'Display',           #Planar UR9851  OFE
 
 
 
@@ -51,33 +51,7 @@ data = {
     'cam4name': 'Camera-4', 
    
 
-    'lights':'COM2',  
-
-    "lights_id": "11", 
-    "lights_name1": "Meeting Hi",
-    "lights_name2": "Meeting Lo",
-    "lights_name3": "AV Present",
-    "lights_name4": "Video Conf.",
-    "lights_name5": "Off",
-    "lights_name6": "not used",
-    "lights_name7": "not used",
-    "lights_name8": "not used",
-    "lights_name9": "not used",
-    "lights_name10": "not used",
-
-    "shades_id1":"191",   
-    "shades_name1": "Open", 
-    "shades_name2": "Close",
-    "shades_name3": "Open",
-    "shades_name4": "Close",
-    "shades_name5": "Open",   
-    "shades_name6": "Close",
-    "shades_name7": "not used",
-    "shades_name8": "not used",
-    "shades_name9": "not used",
-    "shades_name10": "not used",
-
-    
+      
     'warmup':8,
     'cooldown':8,
 

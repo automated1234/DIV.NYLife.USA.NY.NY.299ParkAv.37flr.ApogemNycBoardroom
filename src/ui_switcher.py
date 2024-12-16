@@ -36,7 +36,9 @@ class UiSwitcherClass(AbstractUiClass):
         self.__btnouts = {}
 
         self.__btnoffline = Button(tp, 599)
-        self.__btnoffline.SetVisible(not self.__switcher.online)
+        # self.__btnoffline.SetVisible(not self.__switcher.online)
+        self.__btnoffline.SetVisible(False)
+
 
 
         for ky in self.__ins:

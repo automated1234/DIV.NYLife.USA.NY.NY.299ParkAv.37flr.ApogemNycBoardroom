@@ -30,7 +30,7 @@ tp1 = MirrorUIDevice([tp1a])
 
 # 350 - 399
 import dv_display
-display1 = dv_display.SamsungQm75QClass('display1', data, processor) 
+display1 = dv_display.PlanarUr9851Class('display1', data, processor) 
 
 
 displays = {
@@ -49,10 +49,6 @@ biamp = dv_biamp.BiampClass('biamp', data, dv_biamp_data.data, processor)
 import dv_switcher
 switcher = dv_switcher.AtlonaAtOmeMs42Class('switcher', data)
 
-
-# 800
-import dv_lights
-lights = dv_lights.LutronQseCiNwkClass('lights', data, processor)
 
 
 # 1100
@@ -87,7 +83,7 @@ room = dv_.RoomClass('room', data, switcher, biamp, cams, displays, poly, onebey
 
 
 import ui_
-tp1pages = ui_.UiCreateClass('tp1', tp1, data, switcher, biamp, cams, displays, room, poly, lights, onebeyond)
+tp1pages = ui_.UiCreateClass('tp1', tp1, data, switcher, biamp, cams, displays, room, poly, onebeyond)
 
 
 def __clock_room_off_cb():

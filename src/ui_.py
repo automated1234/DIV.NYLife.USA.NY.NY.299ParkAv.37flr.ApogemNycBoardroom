@@ -2,20 +2,19 @@
 
 from extronlib import event
 # from extronlib.ui import Button, Label, Level
-from drivers.MirrorUI import Button, Label, Level
+from drivers.MirrorUI import Button, Label
 from extronlib.system import MESet, Wait
 from abstracts import *
-import ui_biamp, ui_switcher, ui_cam, ui_display, ui_poly, ui_lights
+import ui_biamp, ui_switcher, ui_cam, ui_display, ui_poly
 
 
 
 class UiCreateClass():
-    def __init__(self, alias, tp, data, switcher, biamp, cams, displays, room, poly, lights, onebeyond):
+    def __init__(self, alias, tp, data, switcher, biamp, cams, displays, room, poly, onebeyond):
         uiswitcher = ui_switcher.UiSwitcherClass(alias, tp, data, switcher)
         self.uicam = ui_cam.UiCamClass(alias, tp, data, cams, switcher)
         uidisplay = ui_display.UiDisplayClass(alias, tp, data, displays)
         uipoly = ui_poly.UiPolyClass(alias, tp, data, poly)
-        uilights = ui_lights.UiLightsClass(alias, tp, data, lights)
         uibiamp = ui_biamp.UiBiampClass(alias, tp, data, biamp, poly)
         self.ui = UiClass(alias, tp, data, room, switcher, biamp, uibiamp, uipoly, uidisplay, uiswitcher, self.uicam, onebeyond)
 
