@@ -32,6 +32,7 @@ class RoomClass(AbstractDvClass):
                 self.__switcher.power_me(True)
                 self.__biamp.preset('RM1_ON')
                 self.__poly.power_me(True)
+                self.__poly.mic_mute(False)
                 self._raise_event('On', None, None)
                 # self.__onebeyond.power_me(True)
 
