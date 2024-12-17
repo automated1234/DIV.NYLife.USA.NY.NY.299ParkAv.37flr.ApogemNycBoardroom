@@ -39,7 +39,7 @@ data = {
     'polyname':'VTC',
 
 
-    'onebeyond':'172.22.0.55',      #CRESTRON IV-SAM-VX2-S
+    'onebeyond':'10.239.1.54',      #CRESTRON IV-SAM-VX2-S
 
     'cam1': '10.239.1.131',               
     'cam1name': 'Camera-1',  

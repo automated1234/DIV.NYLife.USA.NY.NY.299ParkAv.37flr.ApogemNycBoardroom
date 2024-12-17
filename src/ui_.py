@@ -75,7 +75,7 @@ class UiClass(AbstractUiClass):
             134:'main_center_vtc_keyboard',
             135:'main_center_vtc_menu',
 
-            139:'main_center_vtclaptop_take',
+            # 139:'main_center_vtclaptop_take',
 
 
             141:'main_center_room_display',
@@ -335,10 +335,10 @@ class UiClass(AbstractUiClass):
             self.__uidisplay.forcehdmi()
 
 
-        elif sub == 'main_center_vtclaptop_take':
-            self.__show_subpage('main_center_vtclaptop')
-            self.__show_subpage('main_up_vtclaptop')
-            self.__switcher.switch_me(1,1)
+        # elif sub == 'main_center_vtclaptop_take':
+        #     self.__show_subpage('main_center_vtclaptop')
+        #     self.__show_subpage('main_up_vtclaptop')
+        #     self.__switcher.switch_me(1,1)
 
 
         elif sub == 'main_center_vtc_cam':

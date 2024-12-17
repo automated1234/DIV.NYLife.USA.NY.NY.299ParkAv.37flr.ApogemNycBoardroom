@@ -1,82 +1,81 @@
 # "author": "ted.cygan"
 
-from extronlib.system import Wait, Timer
+from extronlib import event
+from extronlib.system import Timer, Wait
 from abstracts import AbstractDvClass
-from drivers.ConnectionHandler import GetConnectionHandler
-import drivers.plnr_display_UR_9850_8450_v1_0_3_0 as display_driver
+from extronlib.interface import SerialInterface
 
 
 class PlanarUr9851Class(AbstractDvClass):
     def __init__(self, alias, data, processor):
-        AbstractDvClass.__init__(self, alias, data, ['ConnectionStatus', 'Power'])
+        AbstractDvClass.__init__(self, alias, data, [])
 
 
-        self.__driver = GetConnectionHandler(display_driver.SerialClass(processor, data[alias], Model='UR9850'), 'Power', DisconnectLimit=5,  pollFrequency=10)
-        # self.__driver = display_driver.SerialClass(processor, data[alias], Model='UR9851')
-        # self.__polling = Timer(10, self.__polling_loop) 
+        self.driver = SerialInterface(processor, data[alias], 19200)
+        self.__polling = Timer(30, self.__polling_cb)
 
 
-        def __subscribe_cb(command, value, qualifier):  
-            self.print_me('__subscribe_cb > c:{}, v:{}, q:{}'.format(command, value, qualifier))
-            if command == 'Power':
-                if value == 'On':   
-                    self.power = True
-                else:
-                    self.power = False
-            elif command == 'ConnectionStatus':
-                if value == 'Connected':   
-                    self.online = True
-                    # self.__polling.Restart()
-                else:
-                    self.online = False
-                    # self.__polling.Cancel()
-
-            self._raise_event(command, value, qualifier)
+        @event(self.driver, ['Online', 'Offline'])
+        def __driveronlineoffline(interface, state):
+            if state == 'Online':
+                self.online = True
+                self._raise_event('ConnectionStatus', 'Connected', None)
+            else:
+                self.online = False
+                self._raise_event('ConnectionStatus', 'Disconnected', None)
 
 
-        for cmd in self._subscriptions:
-            self.__driver.SubscribeStatus(cmd, None, __subscribe_cb)
+        @event(self.driver, 'ReceiveData') 
+        def __driverReceiveData(interface, rcvdata):
+            self.print_me('rx <{}>'.format(rcvdata))
+            if b'DISPLAY.POWER:ON\r' in rcvdata:
+                self._raise_event('Power', 'On', None)
+            elif b'SYSTEM.STATE:POWERING.ON\r' in rcvdata:
+                self._raise_event('Power', 'On', None)
+            elif b'SYSTEM.STATE:ON\r' in rcvdata:
+                self._raise_event('Power', 'On', None)
 
-        self.__driver.Connect()
+            elif b'DISPLAY.POWER:OFF\r' in rcvdata:
+                self._raise_event('Power', 'Off', None)
+            elif b'SYSTEM.STATE:STANDBY\r' in rcvdata:
+                self._raise_event('Power', 'Off', None)
 
-
+            
     #END CONSTRUCTOR
 
-    # def __polling_loop(self, timer, count): 
-    #     if self.online:   
-    #         self.__driver.Update('Power')
+
+    def __polling_cb(self, timer, count): 
+        self.print_me('__polling_cb online:{}'.format(self.online))
+        self.__send('SYSTEM.STATE?\r')   
 
 
     
     def power_me(self, desired):
+        self.print_me('power_me:{}'.format(desired))
 
-        if self.online:   
-            self.__driver.Update('Power')
-            sta = self.__driver.ReadStatus('Power')
-            self.print_me('power_me desired:{}, curr:{}'.format(desired, sta))
+        if desired:
+            self.__send('DISPLAY.POWER=ON\r')   
 
-            if sta=='On' or sta=="Warming Up":
-                self.power=True
-            else:
-                self.power=False
+            @Wait(6)    
+            def __powerwaitInput():
+                self.__send('SOURCE.SELECT=HDMI.1\r')   
 
-            if desired != self.power:
-                self.__driver.Set('Power', 'On')
-                @Wait(3)    
-                def __powerwaitInput():
-                    self.__driver.Set('Input', 'HDMI 1')
-            else:
-                self.__driver.Set('Power', 'Off')
+        else:
+            self.__send('DISPLAY.POWER=OFF\r')   
+
+
+
+    def __send(self, val):
+        self.print_me('tx <{}>'.format(val))
+        self.driver.Send(val)
+
+
+    def tx_inject(self, val):
+        self.__send(val)
 
 
     def forcehdmi(self):
-        self.__driver.Set('Input', 'HDMI 1')
-
-
-
-
-
-  
+        self.__send('SOURCE.SELECT=HDMI.1\r')   
 
 
 

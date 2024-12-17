@@ -12,7 +12,7 @@ class AtlonaAtOmeMs42Class(AbstractDvClass):
         
 
         self.driver = EthernetClientInterface(data['switcher'], 9000)
-        self.__polling = Timer(60, self.__polling_cb)
+        # self.__polling = Timer(60, self.__polling_cb)
         self.__buffer=''
 
 

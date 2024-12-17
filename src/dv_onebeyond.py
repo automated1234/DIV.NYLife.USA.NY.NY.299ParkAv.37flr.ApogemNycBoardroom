@@ -24,8 +24,8 @@ class OnebeyondClass(AbstractDvClass):
                     if value == 'Connected':   
                         self.online = True
                         # self.__polling.Restart()
-                    else:
-                        self.online = False
+                    # else:
+                        # self.online = False
                         # self.__polling.Cancel()
                 elif command == 'AutoSwitch':
                     self.__auto_switch_fb=value
@@ -35,6 +35,8 @@ class OnebeyondClass(AbstractDvClass):
 
             for cmd in self._subscriptions:
                 self.__driver.SubscribeStatus(cmd, None, __subscribe_cb) 
+
+            self.online = True
     #END CONSTRUCTOR
 
 

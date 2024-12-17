@@ -12,6 +12,8 @@ class UiDisplayClass(AbstractUiClass):
         AbstractUiClass.__init__(self, alias, tp, data)
 
         self.__displays = displays
+        self.__displays[1].subscribe(self.__driver1_event_cb)
+
         
 
         __names = {
@@ -62,7 +64,6 @@ class UiDisplayClass(AbstractUiClass):
                 self.__displays[button.ID-370].power_me(False)
 
 
-        self.__displays[1].subscribe(self.__driver1_event_cb)
 
        
      #END CONSTRUCTOR
